@@ -161,7 +161,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/node-rds-serverless/dev/1590674037486-2020-05-28T13:53:57.486Z/node-rds-serverless.zip"
+                "S3Key": "serverless/node-rds-serverless/dev/1590679725322-2020-05-28T15:28:45.322Z/node-rds-serverless.zip"
               },
               "FunctionName": "node-rds-serverless-dev-app",
               "Handler": "app/app.handler",
@@ -179,14 +179,14 @@
               "AppLogGroup"
             ]
           },
-          "AppLambdaVersiontLnuNlEw0tSA7fm3afN8LrGeTDm3c9uB4zdgncTmYw": {
+          "AppLambdaVersion62xj7hG2uKrHJp512Pww1ofD2AjfkwcJBxRjWKGU7o": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AppLambdaFunction"
               },
-              "CodeSha256": "xVVGKIGZyXI3HZh98Mtc9lgLC42a3xBGhwMCXvSprbI="
+              "CodeSha256": "l6FRJlxXHWvffGQXrDXALWTpgNq7Hgx8l+tOVrOHE5o="
             }
           },
           "ApiGatewayRestApi": {
@@ -398,7 +398,7 @@
               "MethodResponses": []
             }
           },
-          "ApiGatewayDeployment1590674033314": {
+          "ApiGatewayDeployment1590679720797": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -460,7 +460,7 @@
           "AppLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AppLambdaVersiontLnuNlEw0tSA7fm3afN8LrGeTDm3c9uB4zdgncTmYw"
+              "Ref": "AppLambdaVersion62xj7hG2uKrHJp512Pww1ofD2AjfkwcJBxRjWKGU7o"
             }
           },
           "ServiceEndpoint": {
@@ -621,7 +621,7 @@
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "AppLambdaVersiontLnuNlEw0tSA7fm3afN8LrGeTDm3c9uB4zdgncTmYw"
+        "versionLogicalId": "AppLambdaVersion62xj7hG2uKrHJp512Pww1ofD2AjfkwcJBxRjWKGU7o"
       }
     },
     "serviceFilename": "serverless.yml",
@@ -630,7 +630,7 @@
     "artifact": "/Users/briancorley/JRSAssigns/NodeRDS-Serverless/.serverless/node-rds-serverless.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/node-rds-serverless/dev/1590674037486-2020-05-28T13:53:57.486Z",
+    "artifactDirectoryName": "serverless/node-rds-serverless/dev/1590679725322-2020-05-28T15:28:45.322Z",
     "artifact": "node-rds-serverless.zip"
   }
 }

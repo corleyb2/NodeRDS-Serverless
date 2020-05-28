@@ -19,32 +19,48 @@ const pool = db.createPool({
   password: process.env.DB_PASSWORD,
 });
 
+// app.post("/create_user", async (request, response) => {
+//   try {
+//     console.log("inside Serverless Try", request);
+//     const conn = await pool.getConnection();
+//     const result = await conn.query(
+//       `INSERT INTO user.users (username, firstname, lastname, email, avatar, bio, github) VALUES ('${request.body.username}', '${request.body.firstname}', '${request.body.lastname}', '${request.body.email}', '${request.body.avatar}', '${request.body.bio}', '${request.body.github}');`
+//     );
+//     console.log("Serverless result", result);
+//     response.status(201).send(result);
+//   } catch (error) {
+//     console.error("Serverless side error", error);
+//     response.status(500).send(error);
+//   }
+// });
+
 app.post("/create_user", async (request, response) => {
   try {
     const conn = await pool.getConnection();
+    var userInfo = {
+      username: request.body.username,
+      firstname: request.body.firstname,
+      lastname: request.body.lastname,
+      email: request.body.email,
+      avatar: request.body.avatar,
+      bio: request.body.bio,
+      github: request.body.github,
+    };
+    console.log("userInfo on Serverless", userInfo);
     const result = await conn.query(
-      `INSERT INTO user.users (username, firstname, lastname, email, avatar, bio, github) VALUES ('${request.body.username}', '${request.body.firstname}', '${request.body.lastname}', '${request.body.email}', '${request.body.avatar}', '${request.body.bio}', '${request.body.github}');`
+      "INSERT INTO user.users SET ?",
+      userInfo,
+      function (error, results, fields) {
+        if (error) throw error;
+      }
     );
+    console.log("Result of Post", result);
     response.status(201).send(result);
   } catch (error) {
     console.error(error);
     response.status(500).send(error);
   }
 });
-
-// app.get("/user", async (request, response) => {
-//   //   const test = { username: "roughneck" };
-//   try {
-//     const conn = await pool.getConnection();
-//     const result = await conn.query(
-//       `SELECT * FROM user.users WHERE username = '${request.query.username}';`
-//     );
-//     response.status(200).send(result);
-//   } catch (error) {
-//     console.error(error);
-//     response.status(500).send(error);
-//   }
-// });
 
 app.get("/user", async (request, response) => {
   try {
@@ -67,7 +83,19 @@ app.put("/update_user", async (request, response) => {
   try {
     const conn = await pool.getConnection();
     const result = await conn.query(
-      `UPDATE user.users SET firstname='${request.body.firstname}', lastname='${request.body.lastname}', email='${request.body.email}', avatar='${request.body.avatar}', bio='${request.body.bio}', github='${request.body.github}' WHERE username = '${request.body.username}';`
+      "UPDATE ?? SET email=?, avatar=?, bio=?, github=? WHERE ?? = ?",
+      [
+        "user.users",
+        request.body.email,
+        request.body.avatar,
+        request.body.bio,
+        request.body.github,
+        "username",
+        request.body.username,
+      ],
+      function (error, results, fields) {
+        if (error) throw error;
+      }
     );
     response.status(201).send(result);
   } catch (error) {
@@ -79,14 +107,12 @@ app.put("/update_user", async (request, response) => {
 app.delete("/delete_user", async (request, response) => {
   try {
     const conn = await pool.getConnection();
-    // console.log("request from serverless put1", JSON.parse(request));
-    // console.log("request from serverless put2", JSON.parse(request.body));
-    // console.log(
-    //   "request from serverless put3",
-    //   JSON.parse(request.body.toString())
-    // );
     const result = await conn.query(
-      `DELETE FROM user.users WHERE username='${request.body.username}'`
+      "DELETE FROM ?? WHERE ?? = ?",
+      ["user.users", "username", request.body.username],
+      function (error, results, fields) {
+        if (error) throw error;
+      }
     );
     response.status(200).send(result);
   } catch (error) {
@@ -94,7 +120,6 @@ app.delete("/delete_user", async (request, response) => {
     response.status(500).send(error);
   }
 });
-
 // app.listen(3000, () => console.log(`Listening on: 3000`));
 
 module.exports.handler = serverless(app);
