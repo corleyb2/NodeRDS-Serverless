@@ -19,21 +19,6 @@ const pool = db.createPool({
   password: process.env.DB_PASSWORD,
 });
 
-// app.post("/create_user", async (request, response) => {
-//   try {
-//     console.log("inside Serverless Try", request);
-//     const conn = await pool.getConnection();
-//     const result = await conn.query(
-//       `INSERT INTO user.users (username, firstname, lastname, email, avatar, bio, github) VALUES ('${request.body.username}', '${request.body.firstname}', '${request.body.lastname}', '${request.body.email}', '${request.body.avatar}', '${request.body.bio}', '${request.body.github}');`
-//     );
-//     console.log("Serverless result", result);
-//     response.status(201).send(result);
-//   } catch (error) {
-//     console.error("Serverless side error", error);
-//     response.status(500).send(error);
-//   }
-// });
-
 app.post("/create_user", async (request, response) => {
   try {
     const conn = await pool.getConnection();
